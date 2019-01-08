@@ -1,6 +1,6 @@
 class Memo {
   constructor() {
-    this.numbs = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25];
+    this.numbs = [...Array(25).keys()].map(n => n + 1);
     this.run();
   }
 
@@ -25,7 +25,7 @@ class Memo {
     return new Promise((res, rej) => {
       setTimeout(function() {
         res(n + 10);
-      }, 500);
+      }, 100);
     });
   }
 
