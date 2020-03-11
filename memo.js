@@ -10,7 +10,7 @@ class Memo {
       let n = args[0];
       if (n in cache) {
         console.log('Fetching from cache', n);
-        return await this.wait(cache[n]); // short(er) pause for cooler effect
+        return await this.sleep(cache[n]); // short(er) pause for cooler effect
       }
       else {
         console.log('Not fetching from cache', n);
@@ -21,14 +21,14 @@ class Memo {
     }
   }
 
-  wait(n) {
+  // Synthetic `sleep` funciton
+  sleep(n) {
     return new Promise((res, rej) => {
       setTimeout(function() {
         res(n + 10);
       }, 100);
     });
   }
-
 
   add(n) {
     return new Promise((res, rej) => {
@@ -41,9 +41,10 @@ class Memo {
   async run() {
     const memoized = this.memoize(this.add);
     let arr = new Array(200); // Needed iterable for async, used arbitrary array with length of 200 
-
+    
     for (let i of arr) {
-      await memoized(this.numbs[Math.floor(Math.random() * this.numbs.length)]);
+      let random = Math.floor(Math.random() * this.numbs.length)
+      await memoized(this.numbs[random]);
     }
   };
 }
